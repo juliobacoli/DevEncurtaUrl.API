@@ -43,7 +43,7 @@ namespace DevEncurtaUrl.API.Controllers
             _context.Add(link);
 
             //O primeiro parametro é a ação que retorna a criação e o segundo é o parametro necessario pra consulta (objeto anonimo)
-            return CreatedAtAction("GetById", new {id = link.Id}, model);
+            return CreatedAtAction("GetById", new {id = link.Id}, link.ShortenedLink);
         }
 
         [HttpPut("{id}")]
@@ -61,7 +61,7 @@ namespace DevEncurtaUrl.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id")]
+        [HttpDelete("{id}")]
         public IActionResult DeletarLink(int id)
         {
             var link = _context.Links.SingleOrDefault(link => link.Id == id);
@@ -74,6 +74,19 @@ namespace DevEncurtaUrl.API.Controllers
             _context.Links.Remove(link);
 
             return NoContent();
+        }
+
+        [HttpGet("/{code}")]
+        public IActionResult Redirecionamento(string code)
+        {
+            var link = _context.Links.SingleOrDefault(link => link.Code == code);
+
+            if (link == null)
+            {
+                return NotFound();
+            }
+
+            return Redirect(link.DestinationLink);
         }
     }
 }

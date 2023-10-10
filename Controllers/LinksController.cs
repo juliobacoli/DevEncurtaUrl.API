@@ -43,7 +43,7 @@ namespace DevEncurtaUrl.API.Controllers
             _context.Add(link);
 
             //O primeiro parametro é a ação que retorna a criação e o segundo é o parametro necessario pra consulta (objeto anonimo)
-            return CreatedAtAction("GetById", new {id = link.Id}, link.ShortenedLink);
+            return CreatedAtAction("GetById", new {id = link.Id}, link);
         }
 
         [HttpPut("{id}")]

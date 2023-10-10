@@ -40,7 +40,8 @@ namespace DevEncurtaUrl.API.Controllers
         {
             var link = new ShortenedCustomLink(model.Title, model.DestinationLink);
 
-            _context.Add(link);
+            _context.Links.Add(link);
+            _context.SaveChanges();
 
             //O primeiro parametro é a ação que retorna a criação e o segundo é o parametro necessario pra consulta (objeto anonimo)
             return CreatedAtAction("GetById", new {id = link.Id}, link);
@@ -57,6 +58,8 @@ namespace DevEncurtaUrl.API.Controllers
             }
 
             link.Update(model.Title, model.DestinationLink);
+            _context.Links.Update(link);
+            _context.SaveChanges();
 
             return NoContent();
         }
@@ -72,6 +75,8 @@ namespace DevEncurtaUrl.API.Controllers
             }
 
             _context.Links.Remove(link);
+            _context.SaveChanges();
+
 
             return NoContent();
         }

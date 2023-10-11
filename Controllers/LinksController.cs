@@ -144,5 +144,16 @@ namespace DevEncurtaUrl.API.Controllers
         }
 
 
+
+            if (link == null)
+            {
+                Log.Error($"Link {link} é nulo");
+                return NotFound();
+            }
+
+            Log.Information($"Redirecionando para: {link.DestinationLink}");
+            return Redirect(link.DestinationLink);
+        }
+
     }
 }

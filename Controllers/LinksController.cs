@@ -2,6 +2,7 @@
 using DevEncurtaUrl.API.Models;
 using DevEncurtaUrl.API.Persistence;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace DevEncurtaUrl.API.Controllers
 {

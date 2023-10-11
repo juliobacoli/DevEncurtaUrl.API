@@ -17,18 +17,37 @@ namespace DevEncurtaUrl.API.Controllers
             _context = context;
         }
 
-
         /// <summary>
         /// Obter todos os links cadastrados
         /// </summary>
         /// <returns>Obter todos os links gerados</returns>
         ///<response code="200"> Sucesso </response>
-
-        [HttpGet]
+        [HttpGet("ObterTodos")]
         public IActionResult GetAllLinks()
         {
             Log.Information("Pegou todos os links gerados.");
             return Ok(_context.Links);
+        }
+
+        /// <summary>
+        /// Link direcionado
+        /// </summary>
+        /// <param name="code">Dados de link direcionado</param>
+        /// <returns> Objeto direcionado </returns>
+        /// <response code="200"> Sucesso </response>
+        [HttpGet("/{code}")]
+        public IActionResult Redirecionamento(string code)
+        {
+            var link = _context.Links.SingleOrDefault(link => link.Code == code);
+
+            if (link == null)
+            {
+                Log.Error($"Link {link} é nulo");
+                return NotFound();
+            }
+
+            Log.Information($"Redirecionando para: {link.DestinationLink}");
+            return Redirect(link.DestinationLink);
         }
 
         /// <summary>
@@ -37,7 +56,7 @@ namespace DevEncurtaUrl.API.Controllers
         /// <param name="id"></param>
         /// <returns>Como resposta trás o link do banco de dados</returns>
         /// <response code="200"> Ok </response>
-        [HttpGet("{id}")]
+        [HttpGet("ObterPorId/{id}")]
         public IActionResult GetById(int id)
         {
             Log.Information("Obtendo links por Id");
@@ -58,7 +77,7 @@ namespace DevEncurtaUrl.API.Controllers
         /// <param name="model">Dados de link</param>
         /// <returns> Objeto recém criado </returns>
         /// <response code="201"> Criado </response>
-        [HttpPost]
+        [HttpPost("Adicionar")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public IActionResult Adicionar(AddOrUpdateShortenedLinkModel model)
         {
@@ -80,7 +99,7 @@ namespace DevEncurtaUrl.API.Controllers
         /// <param name="model"></param>
         /// <returns>Link atualizado</returns>
         /// <response code="204"> NoContent </response>
-        [HttpPut("{id}")]
+        [HttpPut("Atualizar/{id}")]
         public IActionResult Atualizar(int id, AddOrUpdateShortenedLinkModel model)
         {
             Log.Information($"Atualizar: {id}");
@@ -106,7 +125,7 @@ namespace DevEncurtaUrl.API.Controllers
         /// <param name="id"></param>
         /// <returns>Vazio pois o link foi deletado</returns>
         /// <response code="204"> NoContent </response>
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete/{id}")]
         public IActionResult DeletarLink(int id)
         {
             var link = _context.Links.SingleOrDefault(link => link.Id == id);
@@ -124,25 +143,6 @@ namespace DevEncurtaUrl.API.Controllers
             return NoContent();
         }
 
-        /// <summary>
-        /// Link direcionado
-        /// </summary>
-        /// <param name="code">Dados de link direcionado</param>
-        /// <returns> Objeto direcionado </returns>
-        /// <response code="200"> Sucesso </response>
-        [HttpGet("/{code}")]
-        public IActionResult Redirecionamento(string code)
-        {
-            var link = _context.Links.SingleOrDefault(link => link.Code == code);
 
-            if (link == null)
-            {
-                Log.Error($"Link {link} é nulo");
-                return NotFound();
-            }
-
-            Log.Information($"Redirecionando para: {link.DestinationLink}");
-            return Redirect(link.DestinationLink);
-        }
     }
 }

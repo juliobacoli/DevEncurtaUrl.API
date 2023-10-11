@@ -62,7 +62,8 @@ namespace DevEncurtaUrl.API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public IActionResult Adicionar(AddOrUpdateShortenedLinkModel model)
         {
-            var link = new ShortenedCustomLink(model.Title, model.DestinationLink);
+            var domain = HttpContext.Request.Host.Value;
+            var link = new ShortenedCustomLink(model.Title, model.DestinationLink, domain);
 
             Log.Information($"Adicionar link: {link}");
             _context.Links.Add(link);

@@ -2,14 +2,15 @@ namespace DevEncurtaUrl.API.Entities;
 
 public class ShortenedCustomLink
 {
+    public ShortenedCustomLink() { }
 
-    public ShortenedCustomLink(string title, string destinationLink)
+    public ShortenedCustomLink(string title, string destinationLink, string domain)
     {
         var code = title.Split(" ")[0];
 
         Title = title;
         DestinationLink = destinationLink;
-        ShortenedLink = $"localhost:3000/{code}"; //O nome vai ser a primeira parte do titulo, acessando pelo emento 0 da lista.
+        ShortenedLink = $"{domain}/{code}"; //O nome vai ser a primeira parte do titulo, acessando pelo emento 0 da lista.
         Code = code;
         CreatedAt = DateTime.Now.ToShortDateString();
     }

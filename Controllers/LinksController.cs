@@ -2,7 +2,6 @@
 using DevEncurtaUrl.API.Models;
 using DevEncurtaUrl.API.Persistence;
 using Microsoft.AspNetCore.Mvc;
-using Serilog;
 
 namespace DevEncurtaUrl.API.Controllers
 {
@@ -25,7 +24,6 @@ namespace DevEncurtaUrl.API.Controllers
         [HttpGet("ObterTodos")]
         public IActionResult GetAllLinks()
         {
-            Log.Information("Pegou todos os links gerados.");
             return Ok(_context.Links);
         }
 
@@ -59,12 +57,10 @@ namespace DevEncurtaUrl.API.Controllers
         [HttpGet("ObterPorId/{id}")]
         public IActionResult GetById(int id)
         {
-            Log.Information("Obtendo links por Id");
             var link = _context.Links.SingleOrDefault(link => link.Id == id);
 
             if (link == null)
             {
-                Log.Error($"Link {link} é nulo");
                 return NotFound();
             }
 
@@ -84,7 +80,6 @@ namespace DevEncurtaUrl.API.Controllers
             var domain = HttpContext.Request.Host.Value;
             var link = new ShortenedCustomLink(model.Title, model.DestinationLink, domain);
 
-            Log.Information($"Adicionar link: {link}");
             _context.Links.Add(link);
             _context.SaveChanges();
 
@@ -102,16 +97,13 @@ namespace DevEncurtaUrl.API.Controllers
         [HttpPut("Atualizar/{id}")]
         public IActionResult Atualizar(int id, AddOrUpdateShortenedLinkModel model)
         {
-            Log.Information($"Atualizar: {id}");
             var link = _context.Links.SingleOrDefault(link => link.Id == id);
 
             if (link == null)
             {
-                Log.Error($"Link {link} é nulo");
                 return NotFound();
             }
 
-            Log.Information("Atualizando link");
             link.Update(model.Title, model.DestinationLink);
             _context.Links.Update(link);
             _context.SaveChanges();
@@ -132,10 +124,9 @@ namespace DevEncurtaUrl.API.Controllers
 
             if (link == null)
             {
-                Log.Error($"Link {link} é nulo");
                 return NotFound();
             }
-            Log.Information($"Removendo link: {link.Id}");
+
             _context.Links.Remove(link);
             _context.SaveChanges();
 
@@ -147,11 +138,9 @@ namespace DevEncurtaUrl.API.Controllers
 
             if (link == null)
             {
-                Log.Error($"Link {link} é nulo");
                 return NotFound();
             }
 
-            Log.Information($"Redirecionando para: {link.DestinationLink}");
             return Redirect(link.DestinationLink);
         }
 

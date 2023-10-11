@@ -1,6 +1,8 @@
 using DevEncurtaUrl.API.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Serilog;
+using Serilog.Sinks.MSSqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,11 +16,15 @@ builder.Services.AddCors(options =>
         }
         );
 });
-builder.Services.AddDbContext<DevEncurtaUrlDbContext>(o => o.UseInMemoryDatabase("DevEncurtaDb"));
+
+var connectionString = builder.Configuration.GetConnectionString("DevEncurtaUrl");
+
+builder.Services.AddDbContext<DevEncurtaUrlDbContext>(o => o.UseSqlServer(connectionString));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -38,10 +44,24 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(xmlPath);
 });
 
+builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
+{
+    Serilog.Log.Logger = new LoggerConfiguration()
+    .Enrich.FromLogContext()
+    .WriteTo.MSSqlServer(connectionString,
+    sinkOptions: new MSSqlServerSinkOptions()
+    {
+        AutoCreateSqlTable = true,
+        TableName = "Logs"
+    })
+    .WriteTo.Console()
+    .CreateLogger();
+
+}).UseSerilog();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (true)
 {
     app.UseSwagger();
     app.UseSwaggerUI();

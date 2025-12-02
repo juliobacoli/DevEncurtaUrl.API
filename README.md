@@ -81,5 +81,5 @@ Antes de começar, certifique-se de ter os seguintes itens instalados:
 ### 1. Clonar o Repositório
 
 ```bash
-git clone https://github.com/juliobacoli/DevEncurtaUrl.API.git
+git clone https://github.com/juliobacoli/DevEncurtaUrl.API. git
 cd DevEncurtaUrl.API

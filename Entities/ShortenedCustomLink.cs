@@ -6,11 +6,11 @@ public class ShortenedCustomLink
 
     public ShortenedCustomLink(string title, string destinationLink, string domain)
     {
-        var code = title.Split(" ")[0];
+        var code = !string.IsNullOrWhiteSpace(title) && title.Contains(" ") ? title.Split(" ")[0] : title;
 
         Title = title;
         DestinationLink = destinationLink;
-        ShortenedLink = $"{domain}/{code}"; //O nome vai ser a primeira parte do titulo, acessando pelo emento 0 da lista.
+        ShortenedLink = $"{domain}/{code}"; //O nome vai ser a primeira parte do titulo, acessando pelo elemento 0 da lista.
         Code = code;
         CreatedAt = DateTime.Now.ToShortDateString();
     }

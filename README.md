@@ -1,4 +1,4 @@
-﻿# 🔗 DevEncurtaUrl. API
+# 🔗 DevEncurtaUrl.API
 
 Uma API RESTful robusta para encurtamento de URLs e redirecionamento, desenvolvida em **C# com . NET 7.0**.  Este projeto oferece uma solução completa para gerenciar e redirecionar URLs encurtadas com logging avançado e documentação interativa.
 

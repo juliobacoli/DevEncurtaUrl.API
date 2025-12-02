@@ -52,7 +52,7 @@ O **DevEncurtaUrl.API** é uma solução completa para a criação, gerenciament
 | Pacote | Versão | Descrição |
 |--------|--------|-----------|
 | `Microsoft.AspNetCore.OpenApi` | 7.0.11 | Suporte a OpenAPI/Swagger |
-| `Microsoft.EntityFrameworkCore. SqlServer` | 7.0. 12 | Provedor SQL Server para EF Core |
+| `Microsoft.EntityFrameworkCore.SqlServer` | 7.0.12 | Provedor SQL Server para EF Core |
 | `Microsoft. EntityFrameworkCore.Design` | 7.0.12 | Ferramentas de design para EF Core |
 | `Microsoft.EntityFrameworkCore.InMemory` | 7.0.12 | Provedor em memória para testes |
 | `Serilog.AspNetCore` | 6.1.0 | Logging estruturado |

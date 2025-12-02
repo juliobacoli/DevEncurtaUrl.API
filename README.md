@@ -53,10 +53,10 @@ O **DevEncurtaUrl.API** é uma solução completa para a criação, gerenciament
 |--------|--------|-----------|
 | `Microsoft.AspNetCore.OpenApi` | 7.0.11 | Suporte a OpenAPI/Swagger |
 | `Microsoft.EntityFrameworkCore.SqlServer` | 7.0.12 | Provedor SQL Server para EF Core |
-| `Microsoft. EntityFrameworkCore.Design` | 7.0.12 | Ferramentas de design para EF Core |
+| `Microsoft.EntityFrameworkCore.Design` | 7.0.12 | Ferramentas de design para EF Core |
 | `Microsoft.EntityFrameworkCore.InMemory` | 7.0.12 | Provedor em memória para testes |
 | `Serilog.AspNetCore` | 6.1.0 | Logging estruturado |
-| `Serilog.Sinks. MSSqlServer` | 6.2. 0 | Sink para armazenar logs no SQL Server |
+| `Serilog.Sinks.MSSqlServer` | 6.2. 0 | Sink para armazenar logs no SQL Server |
 | `Swashbuckle.AspNetCore` | 6.5.0 | Gerador de documentação Swagger |
 
 ### Banco de Dados
@@ -81,5 +81,5 @@ Antes de começar, certifique-se de ter os seguintes itens instalados:
 ### 1. Clonar o Repositório
 
 ```bash
-git clone https://github. com/juliobacoli/DevEncurtaUrl.API. git
+git clone https://github.com/juliobacoli/DevEncurtaUrl.API.git
 cd DevEncurtaUrl.API

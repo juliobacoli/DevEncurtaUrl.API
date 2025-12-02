@@ -20,7 +20,6 @@ builder.Services.AddCors(options =>
 var connectionString = builder.Configuration.GetConnectionString("DevEncurtaUrl");
 
 builder.Services.AddDbContext<DevEncurtaUrlDbContext>(o => o.UseSqlServer(connectionString));
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -56,12 +55,12 @@ builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
     })
     .WriteTo.Console()
     .CreateLogger();
-
 }).UseSerilog();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (true)
+if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
